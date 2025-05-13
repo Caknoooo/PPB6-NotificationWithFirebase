@@ -1,9 +1,9 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class NotificationService {
   static Future<void> initializeNotification() async {
-    // Initialize Awesome Notifications
     await AwesomeNotifications().initialize(
       null,
       [
@@ -29,42 +29,65 @@ class NotificationService {
       debug: true,
     );
 
-    // Request notification permissions
     await AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
 
-    // Set notification listeners
     await AwesomeNotifications().setListeners(
       onActionReceivedMethod: _onActionReceivedMethod,
       onNotificationCreatedMethod: _onNotificationCreateMethod,
       onNotificationDisplayedMethod: _onNotificationDisplayedMethod,
       onDismissActionReceivedMethod: _onDismissActionReceivedMethod,
     );
+
+    await _initializeFirebaseMessaging();
   }
 
-  // Listeners
+  static Future<void> _initializeFirebaseMessaging() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+    await messaging.requestPermission(alert: true, badge: true, sound: true);
+
+    String? token = await messaging.getToken();
+    print('FCM Token: $token');
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+
+      if (message.notification != null) {
+        createNotification(
+          id: message.hashCode,
+          title: message.notification?.title ?? 'Notifikasi',
+          body: message.notification?.body ?? 'Anda memiliki notifikasi baru',
+        );
+      }
+    });
+  }
+
+  @pragma('vm:entry-point')
   static Future<void> _onNotificationCreateMethod(
     ReceivedNotification receivedNotification,
   ) async {
     debugPrint('Notification created: ${receivedNotification.title}');
   }
 
+  @pragma('vm:entry-point')
   static Future<void> _onNotificationDisplayedMethod(
     ReceivedNotification receivedNotification,
   ) async {
     debugPrint('Notification displayed: ${receivedNotification.title}');
   }
 
+  @pragma('vm:entry-point')
   static Future<void> _onDismissActionReceivedMethod(
     ReceivedNotification receivedNotification,
   ) async {
     debugPrint('Notification dismissed: ${receivedNotification.title}');
   }
 
+  @pragma('vm:entry-point')
   static Future<void> _onActionReceivedMethod(
     ReceivedNotification receivedNotification,
   ) async {

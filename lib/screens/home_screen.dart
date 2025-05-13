@@ -11,17 +11,16 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
+          const SizedBox(height: 20),
           OutlinedButton(
             onPressed: () async {
               await NotificationService.createNotification(
-                id: 5,
-                title: 'Scheduled Notification',
-                body: 'This is the body of the notification',
-                scheduled: true,
-                interval: Duration(seconds: 5),
+                id: 1,
+                title: 'Local Notification',
+                body: 'This is a simple local notification',
               );
             },
-            child: const Text('Scheduled Notification'),
+            child: const Text('Show Local Notification'),
           ),
         ],
       ),
