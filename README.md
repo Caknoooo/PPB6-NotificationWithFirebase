@@ -10,8 +10,6 @@ https://github.com/user-attachments/assets/95599386-89ac-40ad-86d4-2ce3ee9f3d30
 
 - ✅ Notifikasi lokal menggunakan Awesome Notifications
 - ✅ Notifikasi push dari Firebase Cloud Messaging
-- ✅ Notifikasi terjadwal
-- ✅ Handler untuk berbagai status notifikasi (created, displayed, dismissed, action)
 
 ## Cara Menggunakan
 
