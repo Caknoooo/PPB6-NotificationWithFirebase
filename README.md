@@ -1,16 +1,48 @@
-# notification
+# Integrasi Firebase Cloud Messaging dengan Awesome Notifications
 
-A new Flutter project.
+Project ini mendemonstrasikan cara mengintegrasikan Firebase Cloud Messaging (FCM) dengan Awesome Notifications di Flutter untuk mengelola notifikasi push.
 
-## Getting Started
+## Screenshot
 
-This project is a starting point for a Flutter application.
+https://github.com/user-attachments/assets/95599386-89ac-40ad-86d4-2ce3ee9f3d30
 
-A few resources to get you started if this is your first Flutter project:
+## Fitur
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- ✅ Notifikasi lokal menggunakan Awesome Notifications
+- ✅ Notifikasi push dari Firebase Cloud Messaging
+- ✅ Notifikasi terjadwal
+- ✅ Handler untuk berbagai status notifikasi (created, displayed, dismissed, action)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Cara Menggunakan
+
+1. Tambahkan dependencies di pubspec.yaml:
+   ```yaml
+   dependencies:
+    awesome_notifications: ^0.10.1
+    firebase_core: ^3.13.0
+    firebase_auth: ^5.5.3
+    firebase_messaging: ^15.2.5
+   ```
+
+2. Siapkan Firebase:
+   - Buat project di Firebase Console
+   - Download file konfigurasi:
+     - Android: `google-services.json` → taruh di folder `android/app/`
+
+3. Jalankan aplikasi:
+   ```bash
+   flutter pub get
+   flutter run
+   ```
+
+## Testing
+
+- **Notifikasi Lokal**: Gunakan tombol di aplikasi untuk memicu notifikasi lokal
+- **Notifikasi Firebase**: Gunakan Firebase Console atau FCM API untuk mengirim notifikasi
+- **Notifikasi Terjadwal**: Gunakan tombol "Scheduled Notification" di aplikasi
+
+## Referensi
+
+- [Awesome Notifications Documentation](https://pub.dev/packages/awesome_notifications)
+- [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/cloud-messaging)
+- [Flutter Firebase Documentation](https://firebase.flutter.dev/docs/messaging/overview)
